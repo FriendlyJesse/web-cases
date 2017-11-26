@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>评价</title>
+	<style type="text/css">
+		#dv{margin:250px auto;width:400px;height:50px;border:1px solid #eee;text-align:center;line-height:50px;text-align:left;text-indent:50px;}
+		img{cursor:pointer;width:15px;display:block;position:relative;top:18px;left:210px;float:left;}
+		span{margin-left:85px;}
+	</style>
+</head>
+<body>
+	<div id='dv'>
+		我的评价：
+		<img src="img/1.gif"/>
+		<img src="img/1.gif"/>
+		<img src="img/1.gif"/>
+		<img src="img/1.gif"/>
+		<img src="img/1.gif"/>
+		<span></span>
+	</div>
+
+	<script type="text/javascript">
+		var aImg=document.getElementsByTagName('img');
+		var Ospan=document.getElementsByTagName('span')[0];
+		var arr=['极差','很差','还行','推荐','力荐'];
+		var onoff=true;
+
+		for (var i=0;i<aImg.length;i++)
+		{
+			aImg[i].index=i;
+			aImg[i].onmouseover=function()
+			{
+				if (onoff==false)
+				{
+					fngif(aImg.length-1,'img/1.gif');
+					Ospan.innerHTML=''
+					onoff=true;
+				}
+				if (this.index<2)
+				{
+					fngif(this.index,'img/2.gif');
+				}
+				else
+				{
+					fngif(this.index,'img/4.gif');
+				}
+			}
+			aImg[i].onmouseout=function()
+			{
+				if (onoff)
+				{
+					fngif(this.index,'img/1.gif');
+					Ospan.innerHTML='';
+				}
+			}
+
+			aImg[i].onclick=function()
+			{
+				fngif(this.index,'img/3.gif');
+				onoff=false;
+			}
+
+		}
+		function fngif(index,lj)
+		{
+			for (var i=0;i<index+1;i++)
+			{
+				aImg[i].src=lj;
+				Ospan.innerHTML=arr[i];
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽购物</title>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        li{list-style-type:none;float:left;width:200px;border:1px solid #000;margin:10px;}
+        li img{width:200px;}
+        li p{border-bottom:1px dashed #333;text-align:center;}
+        #box{border:1px solid #000;width:600px;height:400px;clear:both;}
+        p{border-bottom:1px dashed #333;height:20px;}
+        p span{float:left;width:200px;}
+        #Money{float:right;}
+    </style>
+</head>
+<body>
+    <ul>
+        <li draggable="true">
+            <img src="body.jpg"/>
+            <p>html</p>
+            <p>40￥</p>
+        </li>
+        <li draggable="true">
+            <img src="body.jpg"/>
+            <p>css</p>
+            <p>60￥</p>
+        </li>
+        <li draggable="true">
+            <img src="body.jpg"/>
+            <p>javascropt</p>
+            <p>1200￥</p>
+        </li>
+        <li draggable="true">
+            <img src="body.jpg"/>
+            <p>jquery</p>
+            <p>40￥</p>
+        </li>
+    </ul>
+    <div id="box">
+        <!-- <p>
+            <span class="box1">1</span>
+            <span class="box2">html</span>
+            <span class="box3">40￥</span>
+        </p>
+        <div id="Money">90￥</div> -->
+    </div>
+
+    <script type="text/javascript">
+        var aLi=document.getElementsByTagName("li"),
+            box=document.getElementById("box");
+
+        var obj={};
+        var num=0;
+        var allMoney=null;
+
+
+        for (var i = 0; i < aLi.length; i++) 
+        {
+            aLi[i].ondragstart=function(ev)
+            {
+                var aP=this.getElementsByTagName("p");
+
+                ev.dataTransfer.setData("title",aP[0].innerHTML);
+                ev.dataTransfer.setData("money",aP[1].innerHTML);
+                ev.dataTransfer.setDragImage(this,0,0);
+            }
+        }
+        box.ondragover=function(ev)
+        {
+            ev.preventDefault();
+        }
+
+        box.ondrop=function(ev)
+        {
+            ev.preventDefault();
+
+            var Titles=ev.dataTransfer.getData("title");
+            var Moneys=ev.dataTransfer.getData("money");
+
+            if (!obj[Titles]) 
+            {
+                var oP=document.createElement("p");
+
+                var oSpan=document.createElement("span");
+                oSpan.innerHTML=1;
+                oSpan.className="box1";
+                oP.appendChild(oSpan);
+
+                var oSpan=document.createElement("span");
+                oSpan.innerHTML=Titles;
+                 oSpan.className="box2";
+                oP.appendChild(oSpan);
+
+                var oSpan=document.createElement("span");
+                oSpan.innerHTML=Moneys;
+                 oSpan.className="box3";
+                oP.appendChild(oSpan);
+
+                box.appendChild(oP);
+
+                obj[Titles]=1;
+            } 
+            else 
+            {
+                var box1=document.getElementsByClassName("box1");
+                var box2=document.getElementsByClassName("box2");
+
+                for (var i = 0; i < box2.length; i++) 
+                {
+                    if(box2[i].innerHTML==Titles)
+                    {
+                        box1[i].innerHTML=parseInt(box1[i].innerHTML)+1;
+                    }
+                }
+
+                if(!allMoney)
+                {
+                    allMoney=document.createElement("div");
+                    allMoney.id="Money";
+                }
+                num+=parseInt(Moneys);
+                allMoney.innerHTML=num+"￥";
+                box.appendChild(allMoney);
+            }
+            
+        }
+
+    </script>
+</body>
+</html>

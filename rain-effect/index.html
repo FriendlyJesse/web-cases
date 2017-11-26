@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>下落特效</title>
+	<script src='jesse.js'></script>
+</head>
+<body>
+	<script type="text/javascript">
+		var str='';
+		var aDiv=document.getElementsByTagName('div');
+		var timer=null;
+		var num=0;
+		var onoff=true;
+
+		for (var i=0;i<20;i++)
+		{
+			str+="<div style='width:50px;height:50px;background:red;position:absolute;top:0px;left:"+i*60+"px;'></div>";
+		}
+		document.body.innerHTML=str;
+
+		document.onclick=function()
+		{
+			clearInterval(timer);
+
+			if (onoff)
+			{
+				fnClick(700);
+			}
+			else
+			{
+				fnClick(0);
+			}
+		}
+		function fnClick(top)
+		{
+			
+			timer=setInterval(function()
+			{
+
+				mobile(aDiv[num],'top',23,top);
+				num++;
+				if(num==aDiv.length)
+				{
+					clearInterval(timer);
+					if (onoff)
+					{
+						num=0;
+						onoff=false;
+					}
+					else
+					{
+						num=0;
+						onoff=true;
+					}
+				}
+			},100);
+		}
+	</script>
+</body>
+</html>

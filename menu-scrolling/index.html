@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>菜单滚动</title>
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		ul{list-style-type:none;}
+		#list{overflow:hidden;width:300px;height:600px;margin:50px auto;border:1px solid #eee;position:relative;}
+		#dv1,#dv2{text-align:center;background:#00bcd4;width:100%;cursor:pointer;}
+		#dv2{position:absolute;bottom:0;}
+		#goods{background:rgb(22,45,85);color:#fff;height:30px;line-height:30px;border-top-right-radius:5px;border-top-left-radius:5px;text-indent:10px;}
+		#goods a{float:right;color:#fff;margin-right:10px;}
+		#Oul{position:absolute;top:60px;left:20px;z-index:-1;}
+		#Oul li{width:250px;height:100px;margin:0 auto;border-bottom:1px solid #333;}
+		#Oul li p{float:left;width:73px;}
+		#Oul li h2{margin-bottom:5px;}
+		#Oul li img{width:100px;float:right;}
+	</style>
+</head>
+<body>
+	<div id='list'>
+		<div id='goods'>
+			商品
+			<a href="">>>更多</a>
+		</div>
+		<div id='dv1'>↑</div>
+		<ul id='Oul'>
+			
+			<li style='height:60px';>
+				<p style='float:none;width:100%'>Mac 翻新产品</p>
+				<p style='float:none;width:100%'>iPod 翻新产品</p>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+			<li>
+				<h2>翻新笔记本</h2>
+				<p>
+					RMB 5,788起最多降低35%
+				</p>
+				<img src="img/1.png"/>
+			</li>
+		</ul>
+		<div id='dv2'>↓</div>
+	</div>
+
+	<script type="text/javascript">
+		var dv1=document.getElementById('dv1');
+		var dv2=document.getElementById('dv2');
+		var Oul=document.getElementById('Oul');
+		var aLi=Oul.getElementsByTagName('li');
+		var px=60;
+		var timer=null;
+		var onoff=true;
+
+		dv1.onmousedown=function()
+		{
+			onoff=true;
+			fnTop(this);
+		}
+
+		dv1.onmouseup=function()
+		{
+			clearInterval(timer);
+		}
+
+		dv2.onmousedown=function()
+		{
+			onoff=false;
+			fnTop(this);
+		}
+		dv2.onmouseup=function()
+		{
+			clearInterval(timer);
+		}
+
+		function fnTop(obj)
+		{
+			clearInterval(timer);
+			timer=setInterval(function()
+			{
+				if (onoff)
+				{
+					if (px<60)
+					{
+						Oul.style.top=px+'px';
+						px++;
+						dv2.style.background='#00bcd4';
+					}
+					else
+					{
+						obj.style.background='#eee';
+					}
+				}
+				else
+				{
+					if (px>-285)
+					{
+						Oul.style.top=px+'px';
+						px--;
+						dv1.style.background='#00bcd4';
+					}
+					else
+					{
+						obj.style.background='#eee';
+					}
+				}
+			},10)
+		}
+	</script>
+</body>
+</html>

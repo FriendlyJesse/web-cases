@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标画线</title>
+    <style>
+        body
+        {
+            background: #000;
+            margin: 0;
+            padding: 0;
+        }
+        #cv
+        {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cv" width="400" height="400">
+    <p>不支持canvas</p>
+</canvas>
+
+<script>
+    var oC = document.getElementById("cv");
+    var canvasObject = oC.getContext("2d");
+    
+    canvasObject.fillRect(0, 0, 100, 100);
+
+    var num = 0;
+    var timer = setInterval(function()
+    {
+        canvasObject.clearRect(num, num, oC.width, oC.height);
+        num ++;
+        canvasObject.fillRect(num, num, 100, 100);
+    }, 30);
+</script>
+</body>
+</html>

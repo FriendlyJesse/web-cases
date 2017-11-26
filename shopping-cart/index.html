@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品单价</title>
+	<style type="text/css">
+		ul{list-style-type:none;}
+		li{margin-top:20px;}
+	</style>
+</head>
+<body>
+	<ul id='list'>
+		<li>
+			<input type="button" value='-'/>
+			<strong>0</strong>
+			<input type="button" value='+'/>
+			单价：<em>12.5元</em> 
+			小计：<span>0元</span>
+		</li>
+		<li>
+			<input type="button" value='-'/>
+			<strong>0</strong>
+			<input type="button" value='+'/>
+			单价：<em>10元</em> 
+			小计：<span>0元</span>
+		</li>
+		<li>
+			<input type="button" value='-'/>
+			<strong>0</strong>
+			<input type="button" value='+'/>
+			单价：<em>50元</em> 
+			小计：<span>0元</span>
+		</li>
+		<p>商品合计共：0件，共花费了：0元<br/>
+		其中最贵的商品单价是：0元</p>
+	</ul>
+
+	<script type="text/javascript">
+		var Oul=document.getElementById('list');
+		var aLi=Oul.getElementsByTagName('li');
+		var oP=Oul.getElementsByTagName('p')[0];
+
+		for (var i=0;i<aLi.length;i++)
+		{
+			fn(aLi[i]);
+		}
+		function fn(OLi)
+		{
+			var btn=OLi.getElementsByTagName('input');
+			var aSpan=OLi.getElementsByTagName('span')[0];
+			var Oem=OLi.getElementsByTagName('em')[0];
+			var Osrong=OLi.getElementsByTagName('strong')[0];
+			var n1=Osrong.innerHTML;
+			var n2=parseFloat(Oem.innerHTML);
+
+
+			btn[0].onclick=function()
+			{
+				n1--;
+				if (n1<0)
+				{
+					n1=0;
+				}
+				fnc();
+				sta();
+			}
+			btn[1].onclick=function()
+			{
+				n1++;
+				fnc();
+				sta();
+			}
+			function fnc()
+			{
+				Osrong.innerHTML=n1;
+				aSpan.innerHTML=n1*n2+'元';
+			}
+		}
+
+		function sta()
+		{
+			var aStrong=Oul.getElementsByTagName('strong');
+			var aspan=Oul.getElementsByTagName('span');
+			var aEm=Oul.getElementsByTagName('em');
+			var total=null;
+			var totol=null;
+			var totcl=[];
+			for (var i=0;i<aLi.length;i++)
+			{
+				total+=parseInt(aStrong[i].innerHTML);
+				totol+=parseFloat(aspan[i].innerHTML);
+				if (parseInt(aStrong[i].innerHTML)!=0)
+				{
+					totcl.push(parseFloat(aEm[i].innerHTML));
+				}
+			}
+			oP.innerHTML="商品合计共："+total+"件，共花费了："+totol+"元，其中最贵的商品单价是："+Math.max.apply(null,totcl)+"元";
+		}
+
+	</script>
+</body>
+</html>

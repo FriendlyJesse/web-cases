@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽</title>
+    <style>
+        *{margin: 0;padding: 0}
+        div
+        {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="dv">
+
+    </div>
+    <div id="dv2" style="left: 850px; top: 400px; ; background: green">
+
+    </div>
+    <script>
+        var dv = document.getElementById("dv");
+        var dv2 = document.getElementById("dv2");
+
+        drag( dv );
+        function drag( obj )
+        {
+            obj.onmousedown=function( ev )
+            {
+                var ev = ev || event;
+                // 获取在拖拽物中的位置
+                var disX = ev.clientX - this.offsetLeft;
+                var disY = ev.clientY - this.offsetTop;
+
+                if ( this.setCapture )
+                {
+                    this.setCapture();
+                }
+
+                document.onmousemove = function ( ev )
+                {
+                    var ev = ev || event;
+                    var L = ev.clientX - disX;
+                    var T = ev.clientY - disY;
+
+                    var L1 = L;
+                    var R1 = L + obj.offsetWidth;
+                    var T1 = T;
+                    var B1 = T + obj.offsetHeight;
+
+                    var L2 = dv2.offsetLeft;
+                    var R2 = L2 + dv2.offsetWidth;
+                    var T2 = dv2.offsetTop;
+                    var B2 = T2 + dv2.offsetHeight;
+
+                    if ( R1 < L2 || L1 > R2 || B1 < T2 || T1 > B2 )
+                    {
+                        dv2.style.background = "green";
+                    }
+                    else
+                    {
+                        dv2.style.background = "red";
+                    }
+
+
+
+                    if ( L < 0 )
+                    {
+                        L = 0;
+                    }
+                    else if ( L > document.documentElement.clientWidth - obj.offsetWidth )
+                    {
+                        L = document.documentElement.clientWidth - obj.offsetWidth;
+                    }
+                    if ( T < 0 )
+                    {
+                        T = 0;
+                    }
+                    else if ( T > document.documentElement.clientHeight - obj.offsetHeight )
+                    {
+                        T = document.documentElement.clientHeight - obj.offsetHeight;
+                    }
+
+                    obj.style.left = L + "px";
+                    obj.style.top = T + "px";
+
+                }
+                document.onmouseup = function ()
+                {
+                    document.onmousemove = null;
+                    if ( obj.releaseCapture )
+                    {
+                        obj.releaseCapture();
+                    }
+                }
+                // 阻止拖拽文字或图片的行为
+                return false;
+            }
+        }
+
+
+    </script>
+</body>
+</html>

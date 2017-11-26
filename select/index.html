@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选</title>
+	<style type="text/css">
+		*{margin:0;padding:0;}
+		#dv1{width:400px;margin:250px auto;}
+		#list{border:1px solid #eee;width:400px;}
+		ul{list-style-type:none;}
+		li{line-height:40px;}
+		#list span{float:right;}
+		#list div{text-indent:20px;}
+		#dv2{width:400px;;border-left:1px solid #eee;border-right:1px solid #eee;border-bottom:2px solid #000;}
+		#dv2 span{margin-left:40px;opacity:0.4}
+	</style>
+</head>
+<body>
+<div id='dv1'>
+	<div id='list'>
+		<ul>
+			<li>
+			<input type="checkbox"/>
+			私奔
+			<span>梁博</span>
+			</li>
+			<li>
+			<input type="checkbox"/>
+			北京北京
+			<span>梁博、黄勇</span>
+			</li>
+			<li>
+			<input type="checkbox"/>
+			我爱你中国
+			<span>梁勇</span>
+			</li>
+			<li>
+			<input type="checkbox"/>
+			花火
+			<span>梁勇</span>
+			</li>
+			<li>
+			<input type="checkbox"/>
+			回来
+			<span>梁勇</span>
+			</li>
+		</ul>
+	</div>
+	<div id='dv2'>
+		<input type="checkbox"/>全选
+		<span><img src="img/3.png">收藏</span>
+		<span><img src="img/2.png">添加</span>
+		<span><img src="img/1.png">删除</span>
+	</div>
+
+	<script type="text/javascript">
+		var Ols=document.getElementById('list');
+		var aLi=Ols.getElementsByTagName('li');
+		var Int=Ols.getElementsByTagName('input');
+		var Odv=document.getElementById('dv2');
+		var Ockd=Odv.getElementsByTagName('input')[0];
+		var Osp=Odv.getElementsByTagName('span');
+		var color=['#F7FFFF','#FFFFFF'];
+		var kd=null;
+
+		for (var i=0;i<aLi.length;i++)
+		{
+			aLi[i].index=i;
+			aLi[i].style.background=color[i%color.length];
+			aLi[i].onmouseover=function()
+			{
+				this.style.background='#eee';
+			}
+			aLi[i].onmouseout=function()
+			{
+				if (!Int[this.index].checked)
+				{
+					this.style.background=color[this.index%color.length];
+				}
+			}
+		}
+
+		for (var i=0;i<Int.length;i++)
+		{
+			Int[i].index=i;
+			Int[i].onclick=function()
+			{
+				this.checked ? kd++ : kd-- ;
+				kd==Int.length ? Ockd.checked=true : Ockd.checked=false ;
+				aLi[this.index].style.background='#eee';
+				fnop();
+			}
+		}
+
+		Ockd.onclick=function()
+		{
+			if (this.checked)
+			{
+				for (var i=0;i<Int.length;i++)
+				{
+					Int[i].checked=true;
+					kd=Int.length;
+				}
+			}
+			else
+			{
+				for (var i=0;i<Int.length;i++)
+				{
+					Int[i].checked=false;
+					kd=0;
+				}
+			}
+			fnop();
+		}
+
+		function fnop()
+		{
+			if (kd>0)
+			{
+				for (var i=0;i<Osp.length;i++)
+				{
+					Osp[i].style.opacity='1';
+				}
+				for (var i=0;i<Int.length;i++)
+				{
+					aLi[i].style.background='#eee';
+				}
+			}
+			else
+			{
+				for (var i=0;i<Osp.length;i++)
+				{
+					Osp[i].style.opacity='0.4';
+				}
+				for (var i=0;i<Int.length;i++)
+				{
+					aLi[i].style.background=color[i%color.length];
+				}
+			}
+		}
+	</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡切换</title>
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		ul{list-style-type:none;}
+		a{color:#000;text-decoration:none;font-size:12px;}
+		#list{width:300px;height:200px;border:1px solid #f44336;margin:250px auto;}
+		li{text-align:center;border:1px solid #ffadad;background:url('img/li_bg.jpg') 0 22px;margin:4px 5px;padding:2px;}
+		img{width:190px;height:190px;margin:5px 2px;}
+		#u1{float:left}
+		#u2{float:right;}
+	</style>
+</head>
+<body>
+	<div id='list'>
+		<ul id='u1'>
+			<li><a href="">连衣裙</a></li>
+			<li><a href="">雪纺</a></li>
+			<li><a href="">T恤</a></li>
+			<li><a href="">铅笔裤</a></li>
+			<li><a href="">婚纱</a></li>
+			<li><a href="">外套</a></li>
+			<li><a href="">连体裤</a></li>
+		</ul>
+		<img id='Oimg' src="img/1.png"/>
+		<ul id='u2'>
+			<li><a href="">包包</a></li>
+			<li><a href="">凉鞋</a></li>
+			<li><a href="">单鞋</a></li>
+			<li><a href="">太阳镜</a></li>
+			<li><a href="">丝袜</a></li>
+			<li><a href="">帆布鞋</a></li>
+			<li><a href="">情侣装</a></li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var aLi=document.getElementsByTagName('li');
+		var Oimg=document.getElementById('Oimg');
+		var num=0;
+		var arr=[];
+		var onoff=true;
+		var timer=null;
+
+		fntime();
+		function fntime()
+		{
+			timer=setInterval(function()
+			{
+				if (onoff)
+				{
+					fn();
+					if (num==aLi.length-1)
+					{
+						onoff=false;
+					}
+					num++;
+				}
+				else
+				{
+					num--;
+					fn();
+					if (num==0)
+					{
+						onoff=true;
+					}
+				}
+			},1000)
+		}
+		function fn()
+		{
+			for (var i=0;i<aLi.length;i++)
+			{
+				aLi[i].style.background='#fff';
+			}
+			aLi[num].style.background='red';
+			Oimg.src="img/"+(num+1)+".png";
+		}
+
+		for (var i=0;i<aLi.length;i++)
+		{
+			aLi[i].index=i;
+			aLi[i].onmouseover=function()
+			{
+				clearInterval(timer);
+				num=this.index;
+				fn();
+			}
+			aLi[i].onmouseout=fntime;
+		}
+
+		Oimg.onmouseover=function()
+		{
+			clearInterval(timer);
+		}
+		Oimg.onmouseout=fntime;
+	</script>
+</body>
+</html>

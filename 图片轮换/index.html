@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片轮换</title>
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+        }
+        #wrap
+        {
+            width: 400px;
+            height: 300px;
+            position: relative;
+            margin: 100px auto;
+            transform-style: preserve-3d;
+            perspective: 800px;
+        }
+        img
+        {
+            width: 400px;
+            height: 300px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform-origin: bottom;
+            transform: rotateX(-180deg);
+            opacity: 0;
+        }
+        @keyframes show
+        {
+            0%
+            {
+                transform: rotateX(180deg);
+                opacity: 0;
+            }
+            50%
+            {
+                transform: rotateX(-20deg);
+                opacity: 1;
+            }
+            60%
+            {
+                transform: rotateX(20deg);
+                opacity: 1;
+            }
+            70%
+            {
+                transform: rotateX(-10deg);
+                opacity: 1;
+            }
+            80%
+            {
+                transform: rotateX(10deg);
+                opacity: 1;
+            }
+            90%
+            {
+                transform: rotateX(-5deg);
+                opacity: 1;
+            }
+            100%
+            {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+        }
+        @keyframes hide
+        {
+            from
+            {
+                transform: rotateX(0deg);
+                opacity: 1;
+            }
+            to
+            {
+                transform: rotateX(-180deg);
+                opacity: 0;
+            }
+        }
+        #wrap input
+        {
+            width: 100px;
+            height: 100px;
+            background: #c1c3bd;
+            position: absolute;
+            top: 100px;
+            border-radius: 50%;
+        }
+        #wrap input:nth-of-type(1)
+        {
+            left: -100px;
+        }
+        #wrap input:nth-of-type(2)
+        {
+            right: -100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <input type="button" value="上一张">
+        <img src="img/img1.jpg" style="animation: 1s show forwards" />
+        <img src="img/img2.jpg" />
+        <img src="img/img3.jpg" />
+        <img src="img/img4.jpg" />
+        <img src="img/img5.jpg" />
+        <input type="button" value="下一张">
+    </div>
+
+<script>
+    var oWrap = document.getElementById("wrap");
+    var abtn = oWrap.getElementsByTagName("input");
+    var aImg = oWrap.getElementsByTagName("img");
+
+    var num = 0;
+    abtn[0].onclick = function ()
+    {
+        aImg[num].style = "animation: .5s hide forwards";
+        num --;
+        if ( num < 0 )
+        {
+            num = aImg.length-1;
+        }
+        aImg[num].style = "animation: 1s show forwards";
+    }
+    abtn[1].onclick = function ()
+    {
+        aImg[num].style = "animation: .5s hide forwards";
+        num ++;
+        if ( num >= aImg.length )
+        {
+            num = 0;
+        }
+        aImg[num].style = "animation: 1s show forwards";
+    }
+</script>
+</body>
+</html>

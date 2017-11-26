@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文本修改</title>
+	<style type="text/css">
+		#dv{width:500px;margin:250px auto;border:none;}
+		h2{height:30px;color:#fff;font-size:15px;line-height:30px;}
+		h2{background:rgb(90,145,90)}
+		div{border-bottom:1px solid #00bcd4;height:40px;line-height:40px;text-indent:5px;}
+		input,span{display:none;}
+		p{display:inline;}
+		img{width:15px;cursor:pointer;}
+		span:hover{color:#009688;cursor:pointer;}
+	</style>
+</head>
+<body>
+	<div id='dv'>
+	<h2>分类名称</h2>
+		<div>
+			<p>开心</p>
+			<input type="text"/>
+			<img src="img/pen.png"/>
+			<span>保存</span>
+			<span>取消</span>
+		</div>
+		<div>
+			<p>不开心</p>
+			<input type="text"/>
+			<img src="img/pen.png"/>
+			<span>保存</span>
+			<span>取消</span>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var aDv=document.getElementById('dv');
+		var aDi=aDv.getElementsByTagName('div');
+
+		for (var i=0;i<aDi.length;i++)
+		{
+			fnDi(aDi[i]);
+		}
+
+		function fnDi(Di)
+		{
+			var aP=Di.getElementsByTagName('p')[0];
+			var aInt=Di.getElementsByTagName('input')[0];
+			var aimg=Di.getElementsByTagName('img')[0];
+			var aSpan=Di.getElementsByTagName('span');
+			aimg.onclick=function()
+			{
+				fn('none','inline');
+				aInt.value=aP.innerHTML;
+			}
+			aSpan[0].onclick=function()
+			{
+				fn('inline','none');
+				aP.innerHTML=aInt.value;
+			}
+			aSpan[1].onclick=function()
+			{
+				fn('inline','none');
+			}
+			function fn(a,b)
+			{
+				aP.style.display=a;
+				aInt.style.display=b;
+				aSpan[0].style.display=b;
+				aSpan[1].style.display=b;
+			}
+		}
+	</script>
+</body>
+</html>

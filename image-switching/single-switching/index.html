@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片切换</title>
+	<style type="text/css">
+	ul{padding:0;margin:0;}
+	li{list-style-type:none;}
+	body{background:#333;}
+	#pic{width:400px;height:500px;position:relative;margin:0 auto;}
+	img{width:400px;height:500px;}
+	#oneUl{position:absolute;top:0;right:-50px;}
+	#oneUl li{width:40px;height:40px;margin-bottom:4px;background:#666;cursor:pointer;}
+	#oneUl .active{background:#fc3;}
+	#oneUl img{width:50px;height:50px;position:absolute;left:45px;top:-5px;display:none;}
+	p,span{position:absolute;left:0;width:400px;height:30px;line-height:30px;text-align:center;color:#fff;background:#000;}
+	p{bottom:0;margin:0;}
+	span{top:0;}
+	#button1,#button2
+	{
+		width:50px;
+		height:50px;
+		background:#fc3;
+		line-height:50px;
+		text-indent:22px;
+		font-weight:bolder;
+		opacity:0.4;
+		cursor:pointer;
+		position:absolute;
+		top:210px;
+	}
+	#button2{right:0;}
+	#button1:hover,#button2:hover{opacity:1}
+	</style>
+</head>
+<body>
+	<div id='pic'>
+		<img src="">
+		<span>数量正在加载中...</span>
+		<div id='button1'>
+		<
+		</div>
+		<div id='button2'>
+		>
+		</div>
+		<p>文字说明正在加载中...</p>
+		<ul id='oneUl'>
+			<div><img src=""></div>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var Odiv=document.getElementById('pic');
+		var Oimg=Odiv.getElementsByTagName('img')[0];
+		var Ospan=Odiv.getElementsByTagName('span')[0];
+		var Op=Odiv.getElementsByTagName('p')[0];
+		var Oul=document.getElementById('oneUl');
+		var Oli=Oul.getElementsByTagName('li');
+		var arry=['img/1.png','img/2.png','img/3.png','img/4.png'];
+		var spans=['图1','图2','图3','图4'];
+		var num=0;
+		var Aimg=Oul.getElementsByTagName('img');
+		var button1=document.getElementById('button1');
+		var button2=document.getElementById('button2');
+
+		for (var i=0;i<arry.length;i++)
+		{
+			Oul.innerHTML+='<li></li>';
+		}
+
+		for (var i=0;i<Oli.length;i++)
+		{
+			Oli[i].index=i;  //给每个li设置索引
+			Oli[i].onclick=function()
+			{
+				num=this.index;  //将每个索引赋值给num
+				fnTab();
+			}
+
+			Oli[i].onmouseover=function()
+			{
+				num=this.index;
+				fnove();
+			}
+			Oli[i].onmouseout=function()
+			{
+				fnout();
+			}
+
+		}
+		function fnTab()
+		{
+			Oimg.src=arry[num];
+			Op.innerHTML=spans[num];
+			Ospan.innerHTML=1+num+'/'+spans.length;
+			for (var i=0;i<arry.length;i++)
+			{
+				Oli[i].className='';
+			}
+			Oli[num].className='active';
+		}
+		fnTab();
+
+		function fnove()
+		{
+			Aimg[0].style.display='block';
+			Aimg[0].src=arry[num];
+			switch(num)
+			{
+				case 0:
+					Aimg[0].style.top='-5px';break;
+				case 1:
+					Aimg[0].style.top='40px';break;
+				case 2:
+					Aimg[0].style.top='84px';break;	
+				case 3:
+					Aimg[0].style.top='127px';break;
+			}
+		}
+		function fnout()
+		{
+			Aimg[0].style.display='none';
+		}
+
+		button1.onclick=function()
+		{
+			num--;
+			if (num<0)
+			{
+				num=3;
+			}
+			fnTab();
+			
+		}
+		button2.onclick=function()
+		{
+			num++;
+			if (num>3)
+			{
+				num=0;
+			}
+			fnTab();
+		}
+	</script>
+</body>
+</html>

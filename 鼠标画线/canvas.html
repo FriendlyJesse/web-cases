@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标画线</title>
+    <style>
+        body
+        {
+            background: #000;
+            margin: 0;
+            padding: 0;
+        }
+        #cv
+        {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cv" width="400" height="400">
+    <p>不支持canvas</p>
+</canvas>
+
+<script>
+    var oC = document.getElementById("cv");
+    var canvasObject = oC.getContext("2d");
+    
+    oC.onmousedown = function(ev)
+    {
+        var ev = ev || window.event;
+        canvasObject.moveTo(ev.clientX, ev.clientY);
+
+        document.onmousemove = function(ev)
+        {
+            var ev = ev || window.event;
+            canvasObject.lineTo(ev.clientX, ev.clientY);
+            canvasObject.stroke();
+        }
+        document.onmouseup = function()
+        {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }
+
+</script>
+</body>
+</html>

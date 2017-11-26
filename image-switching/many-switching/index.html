@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>多图切换</title>
+	<style>
+		#body{width:900px;margin:210px auto;}
+		#left
+		{
+			width:500px;
+			height:300px;
+			background:#ff5722;
+			float:left;
+		}
+		#right
+		{
+			width:300px;
+			height:300px;
+			background:#009688;
+			float:right;
+		}
+		#left img
+		{
+			width:300px;
+			height:100px;
+			margin-top:100px;
+			margin-left:100px;
+		}
+		#right img
+		{
+			width:200px;
+			height:100px;
+			margin-top:100px;
+			margin-left:50px;
+		}
+		span{position:absolute;bottom:500px;}
+		#sp1{left:440px;}
+		#sp3{left:935px;}
+		#sp4{left:1060px;}
+		#btn1,#btn2{position:absolute;top:170px;}
+		#btn2{left:310px;}
+		#img1,#img2{cursor:pointer;}
+	</style>
+</head>
+<body>
+	<div id='body'>
+	<button id='btn1'>上一组</button>
+	<button id='btn2'>下一组</button>
+		<div id='left'>
+			<img id='img1' src="img/1.png">
+			<span id='sp1'>正在加载..</span>
+			<span id='sp2'>加载中..</span>
+		</div>
+		<div id='right'>
+			<img id='img2' src="img/11.png">
+			<span id='sp3'>正在加载..</span>
+			<span id='sp4'>加载中..</span>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var Obtn1=document.getElementById('btn1');
+		var Obtn2=document.getElementById('btn2');
+		var Osp1=document.getElementById('sp1');
+		var Osp2=document.getElementById('sp2');
+		var Osp3=document.getElementById('sp3');
+		var Osp4=document.getElementById('sp4');
+		var Oimg1=document.getElementById('img1');
+		var Oimg2=document.getElementById('img2');
+		var spHtml1=['第一组第一张','第一组第二张','第一组第三张','第一组第四张'];
+		var spHtml3=['第二组第一张','第二组第二张','第二组第三张'];
+		Osp1.index=0;
+		Osp3.index=0;
+
+		Obtn1.onclick=function()
+		{
+			Osp1.index--;
+			Osp3.index--;
+			add(Osp1);
+			remove(Osp3);
+		}
+		Obtn2.onclick=function()
+		{
+			Osp1.index++;
+			Osp3.index++;
+			add(Osp1);
+			remove(Osp3);
+		}
+		Oimg1.onclick=function()
+		{
+			Osp1.index++;
+			add(Osp1);
+		}
+		Oimg2.onclick=function()
+		{
+			Osp3.index++;
+			remove(Osp3);
+		}
+
+		function add(num)
+		{
+			if (num.index<0)
+			{
+				num.index=spHtml1.length-1;
+			}
+			if (num.index>spHtml1.length-1)
+			{
+				num.index=0;
+			}
+			Oimg1.src='img/'+(num.index+1)+'.png';
+			num.innerHTML=spHtml1[num.index];
+			Osp2.innerHTML=num.index+1+'/4';
+		}
+
+		function remove(nun)
+		{
+			if (nun.index<0)
+			{
+				nun.index=spHtml3.length-1;
+			}
+			if (nun.index>spHtml3.length-1)
+			{
+				nun.index=0;
+			}
+			Oimg2.src='img/'+1+(nun.index+1)+'.png';
+			nun.innerHTML=spHtml3[nun.index];
+			Osp4.innerHTML=nun.index+1+'/3';
+		}
+
+	</script>
+</body>
+</html>

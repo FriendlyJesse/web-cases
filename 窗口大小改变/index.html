@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>窗口大小改变</title>
+</head>
+<style>
+    div
+    {
+        width: 100px;
+        height: 100px;
+        /*margin: 250px auto;*/
+        background: red;
+        position: absolute;
+        left: 800px;
+        top: 200px;
+    }
+</style>
+<body>
+    <div id="dv">
+
+    </div>
+
+    <script>
+        var dv = document.getElementById("dv");
+
+        dv.onmousedown = function ( ev )
+        {
+            var ev = ev || event;
+            var stretch = "";
+            var dvWidth = this.offsetWidth;
+            var dvHeight = this.offsetHeight;
+            var dvX = ev.clientX;
+            var dvY = ev.clientY;
+            var dvL = this.offsetLeft;
+            var dvT = this.offsetTop;
+
+            if ( dvX < dvL + 10 )
+            {
+                stretch = "left";
+            }
+            else if ( dvX > dvL + dvWidth - 10 )
+            {
+                stretch = "right";
+            }
+            else if ( dvY < dvT + 10 )
+            {
+                stretch = "top";
+            }
+            else if ( dvY > dvT + dvHeight - 10 )
+            {
+                stretch = "bottom";
+            }
+
+            document.onmousemove = function ( ev )
+            {
+                var ev = ev || event;
+                if ( stretch == "left" )
+                {
+                    dv.style.width = dvWidth - ( ev.clientX - dvX ) + "px";
+                    dv.style.left = dvL + ( ev.clientX - dvX ) + "px";
+                }
+                else if ( stretch == "right" )
+                {
+                    dv.style.width = dvWidth + ( ev.clientX - dvX ) + "px";
+                }
+                else if ( stretch == "top" )
+                {
+                    dv.style.height = dvHeight - ( ev.clientY - dvY ) + "px";
+                    dv.style.top = dvT + ( ev.clientY - dvT ) + "px";
+                }
+                else if ( stretch == "bottom" )
+                {
+                    dv.style.height = dvHeight + ( ev.clientY - dvY ) + "px";
+                }
+
+                this.onmouseup = function ()
+                {
+                    this.onmousemove = null;
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>

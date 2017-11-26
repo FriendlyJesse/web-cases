@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>扇形导航</title>
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+        }
+        #menu
+        {
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+        #list
+        {
+            width: 42px;
+            height: 42px;
+            position: relative;
+            margin: 4px;
+        }
+        #list img
+        {
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: .5s;
+        }
+        #home
+        {
+            width: 50px;
+            height: 50px;
+            background: url("home.png") no-repeat;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: .5s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="menu">
+    <div id="list">
+        <img src="prev.png" alt="">
+        <img src="open.png" alt="">
+        <img src="clos.png" alt="">
+        <img src="full.png" alt="">
+        <img src="refresh.png" alt="">
+    </div>
+    <div id="home"></div>
+</div>
+
+<script>
+    var oHome = document.getElementById("home"),
+        aImg = document.getElementById("list").getElementsByTagName("img");
+    oHome.onoff = true;
+    oHome.onclick = function ()
+    {
+        if ( this.onoff )
+        {
+            this.style.transform = "rotate(-360deg)";
+            toImg( aImg , this.onoff );
+        }
+        else
+        {
+            this.style.transform = "rotate(0deg)";
+            toImg( aImg , this.onoff );
+        }
+        this.onoff = !this.onoff;
+    }
+    for ( var i = 0; i < aImg.length; i++ )
+    {
+        aImg[i].onclick = function ()
+        {
+            this.style.transition = ".3s";
+            this.style.transform = "scale(2)";
+            this.style.opacity = .3;
+            this.addEventListener( "transitionend" , end , false );
+        }
+    }
+    function end()
+    {
+        this.style.transition = ".1s";
+        this.style.transform = "scale(1) rotate(-720deg)";
+        this.style.opacity = 1;
+        this.removeEventListener( "transitionend" , end , false );
+    }
+    function toImg( obj , onoff )
+    {
+        if ( onoff )
+        {
+            obj.iR = -150;
+            obj.iDeg = -720;
+            obj.delay = 0;
+        }
+        else
+        {
+            obj.iR = 0;
+            obj.iDeg = 0;
+            obj.delay = -obj.length;
+        }
+        for ( var i = 0; i < obj.length; i++ )
+        {
+            var oLt = toLT( obj.iR , 90/4*i );
+            obj[i].style.transition = ".5s " + 100*Math.abs( obj.delay + i ) + "ms";
+            obj[i].style.left = oLt.l + "px";
+            obj[i].style.top = oLt.t + "px";
+            obj[i].style.transform = "scale(1) rotate(" + obj.iDeg + "deg)";
+        }
+    }
+    function toLT( iR , iDeg )
+    {
+        return { l : Math.round( Math.sin( Math.PI/180*iDeg )*iR ) , t : Math.round( Math.cos( Math.PI/180*iDeg )*iR ) };
+    }
+
+</script>
+</body>
+</html>

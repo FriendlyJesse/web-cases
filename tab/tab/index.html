@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自动选项卡</title>
+	<style type="text/css">
+		*{padding:none;margin:none;}
+		ul{list-style-type:none;padding:10px;margin:0;}
+		a{text-decoration:none;}
+		#tab{border:1px solid #eee;width:450px;height:300px;margin:250px auto;background:rgb(208,210,209);}
+		#u1{overflow:auto;}
+		#u1 li{border:1px solid rgb(158,159,160);width:100px;height:50px;float:left;text-align:center;line-height:50px;border-bottom:none;cursor:pointer;}
+		#u1 li.hover{background:#fff;border-bottom:none;}
+		#u2{background:#fff;margin:-11px 10px;border:1px solid rgb(158,159,160);height:200px;}
+		#u2 img{width:193px;float:left;background:#fff;border:1px solid #000;}
+		#u2 li{height:65px;background:rgb(181,192,187);text-align:center;line-height:65px;font-size:20px;cursor:pointer;}
+		#u2 li a{color:#000;}
+		#u2 li.active{background:rgb(60,60,60);}
+	</style>
+</head>
+<body>
+	<div id='tab'>
+		 <ul id='u1'>
+		 	<li>专题</li>
+		 	<li style='border-left:none;'>视频</li>
+		 </ul>
+		 <ul id='u2'>
+		 	<img src="img/pen.png"/>
+		 	<li class='active'><a href=""></a></li>
+		 	<li><a href=""></a></li>
+		 	<li><a href=""></a></li>
+		 </ul>
+	</div>
+
+	<script type="text/javascript">
+		var u2=document.getElementById('u2');
+		var u1=document.getElementById('u1');
+		var Oli=u2.getElementsByTagName('li');
+		var aLi=u1.getElementsByTagName('li');
+		var scp=0;
+		var index=0;
+		var arr1=['奇虎360纽交所上市','2011年IT领袖峰会','CCBN召开 助三网融合'];
+		var arr2=['德玛西亚','诺克萨斯','恕瑞玛'];
+		var arr=[arr1,arr2];
+		var timer=setInterval(add,1000);
+
+		for (var i=0;i<aLi.length;i++)
+		{
+			aLi[i].index=i;
+			aLi[i].onclick=function()
+			{
+				index=this.index;
+				scp=0;
+				add();
+				obj(index,arr[index]);
+			}
+		}
+		for (var i=0;i<Oli.length;i++)
+		{
+			Oli[i].index=i;
+			Oli[i].onmouseover=function()
+			{
+				clearInterval(timer);
+				scp=this.index;
+				add();
+			}
+			Oli[i].onmouseout=function()
+			{
+				timer=setInterval(add,1000);
+			}
+		}
+
+		function obj(index,arr)
+		{
+			for (var i=0;i<Oli.length;i++)
+			{
+				Oli[i].innerHTML=arr[i];
+			}
+			for (var i=0;i<aLi.length;i++)
+			{
+				aLi[i]. className='';
+			}
+			aLi[index].className='hover';
+		}
+		obj(0,arr[0]);
+
+		function add()
+		{
+			if (scp>Oli.length-1)
+			{
+				index++;
+				if (index>aLi.length-1)
+				{
+					index=0;
+				}
+				obj(index,arr[index]);
+				scp=0;
+			}
+
+			for (var i=0;i<Oli.length;i++)
+			{
+				Oli[i].className='';
+			}
+			Oli[scp].className='active';
+			scp++;
+		}
+	</script>
+</body>
+</html>

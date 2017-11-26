@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3</title>
+	<style type="text/css">
+		*{padding:0;margin:0;}
+		#content
+		{
+			width: 800px;
+			height: 600px;
+			margin: 100px auto;
+			background: url("bg.jpg");
+		}
+		#content div
+		{
+			width: 440px;
+			padding: 20px 50px;
+		}
+		img
+		{
+			padding: 10px;
+			background: white;
+		}
+
+		img:nth-child(1)
+		{
+			transform: rotate(30deg);
+		}
+		img:nth-child(2)
+		{
+			transform: rotate(-30deg);
+		}
+		img:nth-child(3)
+		{
+			transform: rotate(30deg);
+		}
+		img:nth-child(4)
+		{
+			transform: rotate(-30deg);
+		}
+		img:nth-child(6)
+		{
+			transform: rotate(30deg);
+		}
+		img:hover
+		{
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<div>
+			<img src="haizei1.png" />
+			<img src="haizei2.png" />
+			<img src="haizei3.png" />
+			<img src="haizei4.png" />
+			<img src="haizei5.png" />
+			<img src="haizei6.png" />
+		</div>
+	</div>
+</body>
+</html>
